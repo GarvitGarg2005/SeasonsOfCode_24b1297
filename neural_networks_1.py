@@ -8,7 +8,7 @@ class Model(nn.Module):
         self.sigmoid= nn.Sigmoid()
 
     def forward(self,features):
-        out = self.linear(features)
+        out = self.linear(features) #when we increase hidden layers, this out task becomes hectic so we will use container in NN2
         out= self.sigmoid(out)
 
         return out
