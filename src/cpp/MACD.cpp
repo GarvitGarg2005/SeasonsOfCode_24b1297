@@ -26,5 +26,6 @@ int run_MACD_strategy(const vector<double> &closes, int current_index, int perio
             if(macd_line[i+1]>macd_9_line[i+1]) return 2;
             else return 0;
         }
+        else return 1;
     }
 }
