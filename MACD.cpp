@@ -3,9 +3,9 @@
 #include <vector>
 using namespace std;
 double calculate_EMA(const vector<double> &closes, int current_index, int period = 10) {
-    if(period==1) return closes[current_index-1];
-    float alpha=(2/(period+1));
-    double ema= alpha*closes[current_index-1] + (calculate_EMA(closes, current_index-1,period-1))*(1-alpha);
+    if(current_index==0) return closes[0];
+    float alpha=(2.0/(period+1));
+    double ema= alpha*closes[current_index-1] + (calculate_EMA(closes, current_index-1,period))*(1-alpha);
     return ema;
 }
 vector<double> calculate_MACD(const vector<double> &closes, int current_index, int period = 10) {
@@ -15,7 +15,7 @@ vector<double> calculate_MACD(const vector<double> &closes, int current_index, i
     }
     return macd_line;
 }
-string run_MACD_strategy(const vector<double> &closes, int current_index, int period = 10){
+int run_MACD_strategy(const vector<double> &closes, int current_index, int period = 10){
     vector<double> macd_9_line,macd_line;
     for(int i = current_index - period + 1; i < current_index; ++i) {
         push_back(caluclate_EMA(closes,current_index,9));
@@ -23,8 +23,8 @@ string run_MACD_strategy(const vector<double> &closes, int current_index, int pe
     macd_line=calculate_MACD(closes,current_index);
     for(int i = current_index - period + 1; i < current_index; ++i) {
         if(macd_line[i]==macd_9_line[i]) {
-            if(macd_line[i+1]>macd_9_line[i+1]) return "buy";
-            else return "sell";
+            if(macd_line[i+1]>macd_9_line[i+1]) return 2;
+            else return 0;
         }
     }
 }

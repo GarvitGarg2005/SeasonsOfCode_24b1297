@@ -20,16 +20,16 @@ double calculate_SD(const vector<double> &closes, int current_index, int period 
     }
     return pow((Sum/period),0.5);
 }
-string run_BB_strategy(const vector<double> &closes, int current_index, int period = 20) {
+int run_BB_strategy(const vector<double> &closes, int current_index, int period = 20) {
     double middle_band=calculate_SMA(closes,current_index, period);
     double upper_band= middle_band + 2*calculate_SD(closes,current_index, period);
     double lower_band= middle_band - 2*calculate_SD(closes,current_index, period);
     double close = closes[current_index];
     if(close<lower_band) {
-        return "buy";
+        return 2;
     }
     else if(close>upper_band) {
-        return "sell";
+        return 0;
     }
-    else return "hold";
+    else return 1;
 }
