@@ -1,0 +1,7 @@
+torch.save(model.state_dict(), 'models/nn_model_weights.pt')
+from models.model import SimpleMLP
+
+model = SimpleMLP(input_dim=your_input_size)
+model.load_state_dict(torch.load('models/nn_model_weights.pt'))
+model.eval() 
+
